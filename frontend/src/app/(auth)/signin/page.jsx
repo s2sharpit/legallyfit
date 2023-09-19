@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import cookie from "js-cookie";
 export default function SignIn() {
 
     const [values, setValues] = useState({
@@ -20,7 +21,7 @@ export default function SignIn() {
     const loginHandler = async (e) => {
       e.preventDefault();
       try {
-        const res = await fetch("http://localhost:5000/api/login", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/login`, {
           method: "POST",
           body: JSON.stringify(values),
           headers: {
@@ -31,9 +32,9 @@ export default function SignIn() {
         if (!response) return console.log("error");
         if(response) {
           const {data} = response;
-          router.push("/");
           console.log("success");
-          localStorage.setItem('token', data)
+          cookie.set("token", data, {expires: 1});
+          router.push("/");
         }
         
       } catch (error) {

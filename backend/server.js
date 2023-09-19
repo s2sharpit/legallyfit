@@ -17,7 +17,6 @@ const {will} = require('./components/forms/will.js');
 
 
 
-
 const JWT_SECRET = process.env.SECRET_KEY;
 
 const app = express();
@@ -94,7 +93,7 @@ app.get('/api/user', async (req, res) => {
 	
 	const {id} = user.id;
 	
-	const users = await User.find({_id: {$ne: id}});
+	const users = await User.findOne({_id: {$ne: id}});
 	if(users) {
 		res.json({status: 'ok', data: users});
 	}
@@ -105,17 +104,17 @@ app.post('/api/generate-prompt', async (req, res) => {
 	if(!user) return res.status(401).json({status: 'error', error: 'Unauthenticated'});
 	
 	const {prompt} = req.body;
-	console.log(prompt);
 
 	try {
 		const initial_prompt = await getLandingPrompt(prompt, req, res);
 	
 		// const output = await getCaseDetails(prompt);
+		// console.log(output);
 
 		res.json(JSON.parse(initial_prompt));	
 	} catch (e) {
 		console.log(e);
-		res.json({status: 'error', error: 'Something went wrong'});
+		res.status(406).json({status: 'error', error: 'Something went wrong'});
 	}
 });
 
@@ -135,67 +134,26 @@ app.post('/api/case-details', async (req, res) => {
 });
 
 
-app.post('/api/submit-will', async (req, res) => {
+app.post('api/submit-will', async (req, res) => {
     // Access form data from req.body
-
-	//NOTE: Store the prompt in req.body.prompt, so that we can pass it as a parameter
-	// to the will function
-
 	const user = await checkAuth(req, res);
     if(!user) return res.status(401).json({status: 'error', error: 'Unauthenticated'});
-	
-	try {
-		const will_data = await will(user, req, res);
-		res.json({status: 'ok', data: will_data});
-	} catch(e) {
-		console.log(e);
-	}
+	const will = await affidavit(req,res);
+     
      
 });
-app.post('/api/submit-affidavit', async (req, res) => {
+app.post('api/submit-affidavit', async (req, res) => {
     const user = await checkAuth(req, res);
     if(!user) return res.status(401).json({status: 'error', error: 'Unauthenticated'});
-
-	try {
-		const affidavit_data = await affidavit(req, res);
-		res.json({status: 'ok', data: affidavit_data});
-	}
-	catch(e) {
-		console.log(e);
-	}
+	const affedevit = await affidavit(req,res);
      
 });
 
-app.post('/api/submit-nda', async (req, res) => {
+app.post('api/submit-nda', async (req, res) => {
 	const user = await checkAuth(req, res);
     if(!user) return res.status(401).json({status: 'error', error: 'Unauthenticated'});
-	try {
-		const nda_data = await nda(req, res);
-		res.json({status: 'ok', data: nda_data});
-	}
-	catch(e) {
-		console.log(e);
-	} 
+	const nda = await affidavit(req,res); 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.get("/api/load", async(req, res) => {
 	const str = `<!DOCTYPE html>

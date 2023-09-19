@@ -1,5 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import toast, { Toaster } from "react-hot-toast";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,8 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#FFCC70] min-h-screen p-4`}>
+      <body className={`${inter.className} bg-[#FFCC70] min-h-screen p-4 overflow-x-hidden w-screen`}>
         {children}
+        <Toaster />
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react"; // Import useEffect
+import { useState } from "react"; // Import useEffect
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,7 @@ export default function SignUp() {
     console.log("Hello");
 
     try {
-      const res = await fetch("http://localhost:5000/api/register", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

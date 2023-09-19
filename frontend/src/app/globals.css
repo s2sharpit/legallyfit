@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 0.3rem;
+    /* background: lightgray; */
+    margin-left: 2px;
+    border-left: 1px solid rgba(var(--border-color), 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 0.3rem;
+}
