@@ -34,6 +34,7 @@ export default function SignIn() {
           const {data} = response;
           console.log("success");
           cookie.set("token", data, {expires: 1});
+          // cookie.get("token");
           router.push("/");
         }
         

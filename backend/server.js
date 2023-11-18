@@ -91,9 +91,9 @@ app.get('/api/user', async (req, res) => {
 	const user = await checkAuth(req, res);
 	if(!user) return res.status(401).json({status: 'error', error: 'Unauthenticated'});
 	
-	const {id} = user.id;
+	const { id } = user;
 	
-	const users = await User.findOne({_id: {$ne: id}});
+	const users = await User.findOne({_id: id});
 	if(users) {
 		res.json({status: 'ok', data: users});
 	}
