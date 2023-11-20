@@ -19,6 +19,13 @@ Welcome to LegallyFit, where our AI-powered legal advice chatbot is here to assi
  - Provide quick, informative, and personalized advice to help users take the first steps in various legal situations.
  - Empower users to understand and navigate legal challenges independently.
 
+## Technology Stack
+
+LegallyFit is built using the following technologies:
+
+- **MERN Stack:** MongoDB, Express.js, React.js, Node.js form the foundation of our web application.
+- **Next.js:** We utilize Next.js for a seamless and performant React application, enhancing the user experience.
+
 ## Upcoming Features
 
  -  **Legal Document Creation:** Soon, LegallyFit will introduce the ability to generate customized legal documents, including wills, affidavits, and non-disclosure agreements.
